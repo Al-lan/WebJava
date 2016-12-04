@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.com.produtos.DAO.UserDAO;
+import br.com.produtos.model.User;
+
 /**
  * Servlet implementation class Autenticar
  */
@@ -27,8 +30,20 @@ public class Autenticar extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		User usuario = new User(request.getParameter("login"), request.getParameter("senha"));
 		
-		
+		if( UserDAO.Autenticar(usuario)){
+			
+			request.getSession().setAttribute("Usuario", usuario );
+			response.sendRedirect("adicionar.jsp");
+			response.getWriter().append("Served at: ").append(request.getContextPath());
+			
+		}else{
+			
+			request.setAttribute("erro", "Usuário ou Senha inválidos");
+			request.getRequestDispatcher("login.jsp").forward(request, response);
+			
+		}
 		
 	}
 
@@ -36,8 +51,7 @@ public class Autenticar extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
+		doGet(request, response);
 		
 	}
 
