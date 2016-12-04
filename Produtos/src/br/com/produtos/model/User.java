@@ -2,12 +2,23 @@ package br.com.produtos.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Basic;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "users_prod")
 public class User implements Serializable {
 	
 	
 	private static final long serialVersionUID = 1L;
 	
+	@Basic
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String login;
 	private String senha;
@@ -35,18 +46,9 @@ public class User implements Serializable {
 		return login;
 	}
 
-	public void setLogin(String login) {
-		this.login = login;
-	}
-
 	public String getSenha() {
 		return senha;
 	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-	
 	
 	public static long getSerialversionuid() {
 		return serialVersionUID;

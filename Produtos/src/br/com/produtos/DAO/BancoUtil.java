@@ -1,36 +1,34 @@
 package br.com.produtos.DAO;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.PersistenceUnit;
 
 public class BancoUtil {
 	
-	private static Connection conection;
+	@PersistenceUnit
+	private EntityManagerFactory EMF = Persistence.createEntityManagerFactory("PRD");
 	
-	static {
+	private static BancoUtil instancia;
+	
+	private BancoUtil() {
 		
-		 try {
-			 
-		     Class.forName("org.hsqldb.jdbc.JDBCDriver");
-		     
-		 } catch (Exception e) {
-		     System.err.println("Erro : driver.");
-		     e.printStackTrace();
-		 }
-
-		 try {
-			 
-			conection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/prod", "SA", "");
-			
-		 } catch (SQLException e) {
-			System.out.println("Erro : Conexão");
-			e.printStackTrace();
-		 }
+	}
+	
+	public static BancoUtil getInstancia(){
+		
+		if(instancia == null ){
+			instancia = new BancoUtil();		
+		}
+		
+		return instancia;
 	}
 
-	public static Connection getConection() {
-		return conection;
+	public EntityManagerFactory getEMF() {
+		return EMF;
 	}
+
+	
+	
 	
 }

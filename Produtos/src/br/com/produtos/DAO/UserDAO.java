@@ -1,12 +1,14 @@
 package br.com.produtos.DAO;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+
+
+import javax.persistence.EntityManager;
 
 import br.com.produtos.model.User;
 
 public class UserDAO {
+
+	private static EntityManager EM = BancoUtil.getInstancia().getEMF().createEntityManager();
 	
 	public static boolean Autenticar(User usuario){
 		
@@ -14,23 +16,19 @@ public class UserDAO {
 		
 		try {
 			
-			Connection con = BancoUtil.getConection();
+		
+			String hql = "select us from User as us where us.login=:login and us.senha=:senha";
 			
-			String sql = "select login, senha from users_prod where login=? and senha=? ;";
+			User aux = (User) EM.createQuery(hql).setParameter(
+					"login", usuario.getLogin()).setParameter("senha", usuario.getSenha()).getSingleResult();
 			
-			PreparedStatement pstm = con.prepareStatement(sql);
-			pstm.setString(1, usuario.getLogin());
-			pstm.setString(2, usuario.getSenha());
+			if( aux != null){
 			
-			ResultSet re = pstm.executeQuery();
-			
-			if(re.next()){
 				permissao = true;
+				usuario.setId(aux.getId());
+				System.out.println(usuario.getId());
+			
 			}
-			
-			re.close();
-			pstm.close();
-			
 			
 		} catch (Exception e) {
 			System.out.println("Erro : Autenticar");
