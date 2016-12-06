@@ -7,20 +7,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.com.produtos.DAO.UserDAO;
-import br.com.produtos.model.User;
+import br.com.produtos.DAO.LojaDAO;
+import br.com.produtos.model.Loja;
 
 /**
- * Servlet implementation class Autenticar
+ * Servlet implementation class Cadastrar
  */
-@WebServlet("/autenticar")
-public class Autenticar extends HttpServlet {
+@WebServlet("/cadastrar-loja")
+public class CadastrarLoja extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Autenticar() {
+    public CadastrarLoja() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,29 +30,20 @@ public class Autenticar extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		User usuario = new User(request.getParameter("login"), request.getParameter("senha"));
+		Loja loja = new Loja(request.getParameter("nomeLoja"), request.getParameter("cnpj"), request.getParameter("senha"));
 		
-		if( UserDAO.Autenticar(usuario)){
-			
-			request.getSession().setAttribute("Usuario", usuario );
-			response.sendRedirect("adicionar.jsp");
-			response.getWriter().append("Served at: ").append(request.getContextPath());
-			
-		}else{
-			
-			request.setAttribute("erro", "Usuário ou Senha inválidos");
-			request.getRequestDispatcher("login.jsp").forward(request, response);
-			
-		}
-		
+		LojaDAO.createLoja(loja);
+
+		request.getRequestDispatcher("cadastrar-loja.jsp").forward(request, response);
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		doGet(request, response);
-		
 	}
 
 }

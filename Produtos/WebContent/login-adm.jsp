@@ -5,12 +5,20 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title> Login </title>
+<title> Login User</title>
 </head>
 
 <body>
+
+	<ul>
+		<li> <a href="index.jsp"> Principal </a> </li>
+		<li> <a href="login-loja.jsp"> Lojas </a>
+		<li> <a href="login-adm.jsp"> Adm </a>
+	</ul>
 	
-	<form action="autenticar" method="POST">
+	
+	
+	<form action="autenticar-user" method="POST">
 
 		<p>
 		Login:
@@ -22,10 +30,12 @@
 			<input type="password" name="senha" placeholder="Senha">
 		</p>
 	
-		<input type="submit" value="Enviar">
+		<input type="submit" value="Entrar">
 
 	</form>
-
+	
+	<c:if test="${user != null}"> <c:redirect url="home.jsp"></c:redirect> </c:if>
+	
 	<p>
 		<c:out value="${erro}"> </c:out>
 	</p>
