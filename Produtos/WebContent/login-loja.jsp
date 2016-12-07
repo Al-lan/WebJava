@@ -8,11 +8,7 @@
 </head>
 <body>
 
-		<ul>
-			<li> <a href="index.jsp"> Principal </a> </li>
-			<li> <a href="login-loja.jsp"> Lojas </a>
-			<li> <a href="login-adm.jsp"> Adm </a>
-		</ul>
+	<c:import url="nav.html"></c:import>
 
 
 	<form action="autenticar-loja" method="POST">
@@ -31,8 +27,8 @@
 
 	</form>
 	
-	<c:if test="${loja != null}"> <c:redirect url="adicionar-produto.jsp"></c:redirect> </c:if>
-	
+		<c:if test="${not empty loja.nome}"> <c:redirect url="adicionar-produto.jsp"></c:redirect> </c:if>
+
 	<p>
 		<c:out value="${erro}"> </c:out>
 	</p>

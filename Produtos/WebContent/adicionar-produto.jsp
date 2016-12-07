@@ -12,11 +12,7 @@
 </head>
 <body>
 
-	<ul>
-		<li> <a href="index.jsp"> Principal </a> </li>
-		<li> <a href="login-loja.jsp"> Lojas </a>
-		<li> <a href="login-adm.jsp"> Adm </a>
-	</ul>
+	<c:import url="nav.html"></c:import>
 
 	<p>
 	Bem vindo loja: <c:out value="${loja.nome}"></c:out>
@@ -57,7 +53,7 @@
 					
 	</form>
 
-<c:if test="${loja == null}"> <c:redirect url="404.html"></c:redirect> </c:if>	
+<c:if test="${empty loja.nome }"> <c:redirect url="404.html"></c:redirect> </c:if>	
 	
 </body>
 </html>

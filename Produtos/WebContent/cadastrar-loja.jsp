@@ -12,12 +12,7 @@
 
 Adm : <c:out value="${usuario.login}"></c:out>
 
-		<ul>
-			<li> <a href="index.jsp"> Principal </a> </li>
-			<li> <a href="login-loja.jsp"> Lojas </a>
-			<li> <a href="login-adm.jsp"> Adm </a>
-		</ul>
-
+	<c:import url="nav.html"></c:import>
 	
 	<form action="cadastrar-loja" method="POST">
 			
@@ -40,7 +35,7 @@ Adm : <c:out value="${usuario.login}"></c:out>
 	
 	</form>
 	
-<c:if test="${user == null}"> <c:redirect url="404.html"></c:redirect> </c:if>
+<c:if test="${empty usuario.login }"> <c:redirect url="404.html"></c:redirect> </c:if>
 
 </body>
 </html>

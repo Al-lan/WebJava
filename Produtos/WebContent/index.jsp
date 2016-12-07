@@ -12,15 +12,9 @@
 
 <body>
 
+	<c:import url="nav.html"></c:import>
 	
-	<ul>
-		<li> <a href="index.jsp"> Principal </a> </li>
-		<li> <a href="login-loja.jsp"> Lojas </a>
-		<li> <a href="login-adm.jsp"> Adm </a>
-	</ul>
-	
-	
-	<main>
+	<div>
 		
 		<c:forEach items="${produtoDAO.lista}" var="pro"> 
 			<div>
@@ -31,14 +25,14 @@
 			
 					${pro.descricao}<br>
 				
-					até as : ${pro.duracao}<br>
+					Até as : ${pro.duracao}<br>
 					
 				</p>
 			</div>	
 			<br>
 		</c:forEach>
 		
-	</main>
+	</div>
 
 </body>
 </html>

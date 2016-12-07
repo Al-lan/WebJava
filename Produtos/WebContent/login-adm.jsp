@@ -10,12 +10,7 @@
 
 <body>
 
-	<ul>
-		<li> <a href="index.jsp"> Principal </a> </li>
-		<li> <a href="login-loja.jsp"> Lojas </a>
-		<li> <a href="login-adm.jsp"> Adm </a>
-	</ul>
-	
+	<c:import url="nav.html"></c:import>
 	
 	
 	<form action="autenticar-user" method="POST">
@@ -34,7 +29,7 @@
 
 	</form>
 	
-	<c:if test="${user != null}"> <c:redirect url="home.jsp"></c:redirect> </c:if>
+	<c:if test="${not empty usuario.login}"> <c:redirect url="home.jsp"></c:redirect> </c:if>
 	
 	<p>
 		<c:out value="${erro}"> </c:out>

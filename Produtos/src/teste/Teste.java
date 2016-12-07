@@ -13,22 +13,14 @@ import java.util.List;
 
 public class Teste {
 	
+  
+	
 	public static void main(String[] args) {
 		
-
 		EntityManagerFactory EMF = Persistence.createEntityManagerFactory("PRD");
+		
 		EntityManager manager = EMF.createEntityManager();
 
-		User u = new User("Delta", "741");
-		u.setId((long) 4);
-		System.out.println("1");
-		
-		manager.getTransaction().begin();
-		System.out.println("2");
-		manager.persist(u);
-		System.out.println("3");
-		manager.getTransaction().commit();
-		System.out.println("4");
 		
 		String hql = "from User";
 
@@ -38,10 +30,28 @@ public class Teste {
 		for (User user : usus) {
 			System.out.println(user.getLogin() + " " + user.getSenha());
 		}
+		
+	
+		
+		manager.getTransaction().begin();
+		manager.remove(manager.find(User.class, 5L));
+		manager.getTransaction().commit();
 
+		
+		System.out.println("-----------------");
+		
+		usus = manager.createQuery(hql).getResultList();
+
+		for (User user : usus) {
+			System.out.println(user.getLogin() + " " + user.getSenha());
+		}
+		
 		manager.close();
 		EMF.close();
 		
 	}
+	
+	
+	
 
 }

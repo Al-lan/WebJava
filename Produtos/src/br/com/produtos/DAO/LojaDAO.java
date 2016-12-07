@@ -1,5 +1,7 @@
 package br.com.produtos.DAO;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 
 import br.com.produtos.model.Loja;
@@ -43,6 +45,12 @@ public class LojaDAO {
 		
 	}
 	
+	public List<Loja> getLista() {
+		List<Loja> lojas = (List<Loja>) manager.createQuery("from Loja").getResultList();
+		return lojas;
+	}
+	
+	
 	public static boolean autenticarLoja(Loja loja){
 		
 		boolean permissao = false;
@@ -51,8 +59,6 @@ public class LojaDAO {
 			
 			
 			String hql = "select lo from Loja as lo where lo.cnpj=:cnpj and lo.senha=:senha";
-			
-			System.out.println(loja.getCnpj()+" "+loja.getSenha());
 			
 			Loja aux = (Loja) manager.createQuery(hql).setParameter(
 					"cnpj", loja.getCnpj()).setParameter("senha", loja.getSenha()).getSingleResult();
@@ -78,5 +84,20 @@ public class LojaDAO {
 		return permissao;
 		
 	}
+	
+	
+	public static void deleteLoja(long id){
+		
+		try{
+			manager.getTransaction().begin();
+			manager.remove(manager.find(Loja.class, id));
+			manager.getTransaction().commit();
+			
+		}catch (Exception e) {
+			System.out.println("Erro : deleteLoja ");
+			e.printStackTrace();
+		}
+	}
+	
 
 }
